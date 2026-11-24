@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tutube</title><style>body{font-family:Roboto,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;
+justify-content:center;height:90vh;margin:0;color:#333}.s{width:42px;height:42px;border-radius:50%;border:4px solid #ff000022;
+border-top-color:#f00;animation:r .8s linear infinite}@keyframes r{to{transform:rotate(360deg)}}</style></head><body>
+<div class="s"></div><p id="m">Tutube khul raha hai...</p><script>
+const q = location.search, h = location.hash;
+const go = u => { if (u) location.replace(u.replace(/\/$/, "") + "/" + q + h); };
+fetch("https://api.github.com/repos/mindh00/automation-tool/contents/url.json", {cache: "no-store"})
+  .then(r => r.json()).then(j => JSON.parse(atob(j.content.replace(/\n/g, ""))).url)
+  .catch(() => fetch("../url.json?" + Date.now(), {cache: "no-store"}).then(r => r.json()).then(j => j.url))
+  .then(go).catch(() => document.getElementById("m").textContent = "Tool abhi band hai (laptop off ya internet nahi). Thori der baad dobara kholein.");
+</script></body></html>
